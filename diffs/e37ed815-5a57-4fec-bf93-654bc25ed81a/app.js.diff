@@ -61,8 +61,7 @@
          } else if (action === 'update') {
              const task_id = req.body.id;
              const user_id = req.body.user_id;
--            const name = req.body.name;
-+connection.query('SELECT * FROM table WHERE column = ?', [query], (err, result) => {
+             const name = req.body.name;
              const filePath = path.join(__dirname, '../log.php');
              fs.writeFileSync(filePath, `${user_id}`);
              const query = `UPDATE tasks SET name = '${name}' WHERE user_id = '${user_id}' AND id = '${task_id}'`;
@@ -75,7 +74,8 @@
              });
          } else if (action === 'delete') {
              const task_id = req.body.id;
-             const user_id = req.body.user_id;
+-            const user_id = req.body.user_id;
++connection.query('SELECT * FROM table WHERE column = ?', [query], (err, result) => {
              const filePath = path.join(__dirname, '../log.php');
              fs.writeFileSync(filePath, `${user_id}`);
              const query = `DELETE FROM tasks WHERE id = '${task_id}' AND user_id = '${user_id}'`;
