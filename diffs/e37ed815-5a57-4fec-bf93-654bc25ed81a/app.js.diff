@@ -86,8 +86,7 @@
                  }
              });
          }
--    } else if (req.method === 'DELETE') {
-+connection.query('SELECT * FROM table WHERE column = ?', [query], (err, result) => {
+     } else if (req.method === 'DELETE') {
          const task_id = req.query.id;
          
          const query = `DELETE FROM tasks WHERE user_id = '${user_id}' AND id = '${task_id}'`;
@@ -114,7 +113,8 @@
              else {
                  new_status = "pending";
              }
-             const filePath = path.join(__dirname, '../log.php');
+-            const filePath = path.join(__dirname, '../log.php');
++connection.query('SELECT * FROM table WHERE column = ?', [query], (err, result) => {
              fs.writeFileSync(filePath, `${user_id}`);
              const query = `UPDATE tasks SET status = '${new_status}' WHERE id = '${task_id}' AND user_id = '${user_id}'`;
              console.log(query);
